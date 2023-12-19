@@ -12,6 +12,8 @@ const newsServer = express()
 newsServer.use(cors())
 newsServer.use(express.json())
 newsServer.use(router)
+// static List 
+newsServer.use('/uploads',express.static('./uploads'))
 const PORT = 4000 || process.env.PORT
 
 newsServer.listen(PORT,()=>{
