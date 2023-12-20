@@ -45,3 +45,37 @@ exports.allNews = async(req,res)=>{
         res.status(401).json(err)
     }
 }
+
+
+
+// editNews
+exports.editNewsController = async (req,res)=>{
+    // get project id
+    const {id}=req.params
+    const userId = req.payload
+    const {newsTitle,newsDetails,newsDate,newsImage}=req.body 
+    const uploadNewsImage = req.file?req.file.filename:newsImage
+    try{
+        const updateNews = await news.findByIdAndUpdate({_id:id},{
+            newsTitle,newsDetails,newsDate,"newsImage":uploadNewsImage,userId
+        },{new:true})
+        await updateNews.save()
+        res.status(200).json(updateNews)
+    }catch(err){
+        res.status(401).json(err)
+    }
+
+}
+
+
+// deleteNews
+exports.deleteNewsController = async(req,res)=>{
+    const {id} = req.params
+    try{
+        const removeNews = await news.findByIdAndDelete({_id:id})
+        res.status(200).json(removeNews)
+
+    }catch(err){
+        res.status(401).json(err)
+    }
+}

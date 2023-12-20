@@ -21,5 +21,11 @@ router.get('/user/all-news',jwtMiddleware,newsController.alluserNews)
 // getAllNews
 router.get('/user/all',newsController.allNews)
 
+// edit news
+router.put('/news/edit/:id',jwtMiddleware,multerConfig.single("newsImage"),newsController.editNewsController)
+
+// delete news
+router.delete('/news/remove/:id',jwtMiddleware,newsController.deleteNewsController)
+
 // export router
 module.exports = router
