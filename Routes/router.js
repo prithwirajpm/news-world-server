@@ -6,6 +6,8 @@ const jwtMiddleware = require('../Middlewares/jwtMiddleware')
 const multerConfig = require('../Middlewares/multerMiddleware')
 const newsCommentController = require('../Controller/newsCommentController')
 const newsLikeDislikeController = require('../Controller/newsLikeDislikeController')
+const isAdmin = require('../Middlewares/adminMiddleware')
+const adminController = require('../Controller/adminController')
 
 // Register aPI
 router.post('/user/register',userController.register)
@@ -48,6 +50,12 @@ router.put('/news/dislike/:id', jwtMiddleware, newsLikeDislikeController.dislike
 
 // getLike and DisLike
 router.get('/news/likesAndDislikes/:id',newsLikeDislikeController.getLikesAndDislikes);
+
+// admin Register
+router.post('/admin/register',userController.registerAdmin)
+
+// admin Show userList
+router.get('/admin/viewusers',jwtMiddleware,isAdmin,adminController.viewUsers)
 
 
 // export router

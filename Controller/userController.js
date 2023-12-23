@@ -41,3 +41,26 @@ try{
     res.status(401).json(`Login API Failed, Error: ${err}`)
 }
 }
+
+// AdminRegister
+exports.registerAdmin = async (req, res) => {
+    const { username, email, password } = req.body;
+    
+    try {  
+      const existingUser = await users.findOne({ email });
+      if (existingUser) {
+        res.status(406).json("Account already exist");
+      } else {
+        const newUser = new users({
+          username,
+          email,
+          password,
+          isAdmin: true,  // set isAdmin to true for admin user
+        });
+        await newUser.save()
+        res.status(200).json(newUser)
+      }
+    } catch(err) {
+      res.status(401).json(err.message);
+    }
+  }
