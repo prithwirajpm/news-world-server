@@ -57,6 +57,19 @@ router.post('/admin/register',userController.registerAdmin)
 // admin Show userList
 router.get('/admin/viewusers',jwtMiddleware,isAdmin,adminController.viewUsers)
 
+// UpadteReportCount
+router.put('/news/reportNews/:id', jwtMiddleware, newsController.ReportCount);
+
+router.put(
+    '/user/editprofile/:id',
+    jwtMiddleware,
+    multerConfig.single('profile'),
+    userController.editUserProfile
+  );
+  
+
+  router.get('/user/allusers',jwtMiddleware,userController.getUserIdes) 
 
 // export router
+router.put('/user/editprofile',jwtMiddleware,multerConfig.single("profile"),userController.editUserProfile)
 module.exports = router

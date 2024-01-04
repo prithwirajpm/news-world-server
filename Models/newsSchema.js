@@ -23,7 +23,12 @@ const newsSchema = new mongoose.Schema({
     userId:{
         type:String,
         required:true,
-    }
+    },
+    blockSection: {
+        type: Number,
+        default: 0,
+    },
+    
 
 })
 

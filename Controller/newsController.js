@@ -81,3 +81,19 @@ exports.deleteNewsController = async(req,res)=>{
 }
 
 
+exports.ReportCount = async (req, res) => {
+    try {
+        const {id}=req.params
+        // Find the existing record or create a new one if it doesn't exist
+        let updatedReportCount = await news.findOneAndUpdate(
+            { _id:id },
+            { $inc: { blockSection: 1 } }, // Increment the blockSection by 1
+            { new: true, upsert: true } // Return the updated document, create if it doesn't exist
+        );
+        res.status(200).json(updatedReportCount);
+    } catch (err) {
+        res.status(401).json(err);
+    }
+};
+
+
